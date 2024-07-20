@@ -14,9 +14,9 @@ export class CreateFeatureDTO implements TFeatureCreateDTO {
   @IsDate()
   public updatedAt: Date;
   constructor(feature: TFeatureCreateDTO | undefined) {
-    this.name = feature?.name;
-    this.description = feature?.description;
-    this.createdAt = feature?.createdAt;
-    this.updatedAt = feature?.updatedAt;
+    this.name = feature?.name || '';
+    this.description = feature?.description || '';
+    this.createdAt = feature?.createdAt || new Date();
+    this.updatedAt = new Date();
   }
 }

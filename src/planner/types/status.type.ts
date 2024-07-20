@@ -4,6 +4,8 @@ export type TStatus = {
   _id: string;
   name: string;
   description: string;
+  createdAt: Date;
+  updatedAt: Date;
 } & TColor;
 
 export type TStatusCreateDTO = Partial<Omit<TStatus, '_id'>>;

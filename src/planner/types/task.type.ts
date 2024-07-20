@@ -1,11 +1,19 @@
 import { TColor } from '@src/shared/types/color.type';
+import { TStatus } from './status.type';
 
 export type TTask = {
   _id: string;
   name: string;
   description: string;
-  status: string;
-  dueDate: Date;
+  status: TStatus | string;
+  tasks: (TTask | string)[];
+  startDate: Date;
+  endDate: Date;
+  approximateTimeProjection: number;
+  lastCheckStatus: Date;
+  priority: number;
+  impact: number;
+  impactDescription: string;
   createdAt: Date;
   updatedAt: Date;
 } & TColor;

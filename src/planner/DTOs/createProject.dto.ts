@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsDate,
   IsNumber,
   IsOptional,
@@ -9,7 +10,7 @@ import { colorDTO } from '@src/shared/DTOs/color.dto';
 import { isTProjectCategory } from '../types/projectCategory.type';
 import { isTProjectSubCategory } from '../types/projectSubCategory.type';
 import { isTFeature } from '../types/feature.type';
-import { isTRequeriment } from '../types/requeriments.type';
+import { isTRequeriment } from '../types/requeriment.type';
 import { isTStatus } from '../types/status.type';
 import { isTTask } from '../types/task.type';
 export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
@@ -32,10 +33,10 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
   @IsDate()
   public endDate: Date;
   @IsOptional()
-  @IsString()
+  @IsArray()
   public features: string[];
   @IsOptional()
-  @IsString()
+  @IsArray()
   public requeriments: string[];
   @IsOptional()
   @IsNumber()
@@ -47,7 +48,7 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
   @IsDate()
   public lastCheckStatus: Date;
   @IsOptional()
-  @IsString()
+  @IsArray()
   public tasks: string[];
   @IsOptional()
   @IsNumber()
@@ -111,7 +112,7 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
     this.priority = project?.priority || 0;
     this.impact = project?.impact || 0;
     this.impactDescription = project?.impactDescription || '';
-    this.createdAt = new Date();
+    this.createdAt = project?.createdAt || new Date();
     this.updatedAt = new Date();
   }
 }

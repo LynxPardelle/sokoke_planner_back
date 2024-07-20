@@ -1,11 +1,10 @@
-import { ObjectId } from 'mongoose';
 import { TStatus } from './status.type';
 
 export type TRequeriment = {
   _id: string;
   name: string;
   description: string;
-  status: TStatus | ObjectId | string;
+  status: TStatus | string;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -1,28 +1,27 @@
 import { TColor } from '@src/shared/types/color.type';
-import { ObjectId } from 'mongoose';
 import { TUser } from '@src/user/types/user.type';
+import { TFeature } from './feature.type';
 import { TProjectCategory } from './projectCategory.type';
 import { TProjectSubCategory } from './projectSubCategory.type';
-import { TFeature } from './feature.type';
-import { TRequeriment } from './requeriments.type';
+import { TRequeriment } from './requeriment.type';
 import { TStatus } from './status.type';
 import { TTask } from './task.type';
 
 export type TProject = {
   _id: string;
-  owners: (TUser | ObjectId | string)[];
+  owners: (TUser | string)[];
   name: string;
   description: string;
-  category: TProjectCategory | ObjectId | string;
-  subCategory: TProjectSubCategory | ObjectId | string;
+  category: TProjectCategory | string;
+  subCategory: TProjectSubCategory | string;
   startDate: Date;
   endDate: Date | undefined;
-  features: (TFeature | ObjectId | string)[];
-  requeriments: (TRequeriment | ObjectId | string)[];
+  features: (TFeature | string)[];
+  requeriments: (TRequeriment | string)[];
   approximateTimeProjection: number;
-  status: TStatus | ObjectId | string;
+  status: TStatus | string;
   lastCheckStatus: Date;
-  tasks: (TTask | ObjectId | string)[];
+  tasks: (TTask | string)[];
   priority: number;
   impact: number;
   impactDescription: string;

@@ -1,12 +1,11 @@
 import { TColor } from '@src/shared/types/color.type';
-import { ObjectId } from 'mongoose';
 import { TProjectSubCategory } from './projectSubCategory.type';
 
 export type TProjectCategory = {
   _id: string;
   name: string;
   description: string;
-  subCategories: (TProjectSubCategory | ObjectId | string)[];
+  subCategories: (TProjectSubCategory | string)[];
   createdAt: Date;
   updatedAt: Date;
 } & TColor;
