@@ -14,7 +14,7 @@ export class ProjectCategory implements Omit<TProjectCategory, '_id'> {
     default: [],
     schema: true,
     schemaName: 'ProjectSubCategory',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'ProjectSubCategory',
   })
   public subCategories: (TProjectSubCategory | string)[];

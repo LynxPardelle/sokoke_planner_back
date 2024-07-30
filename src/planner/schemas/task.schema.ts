@@ -22,7 +22,7 @@ export class Task implements Omit<TTask, '_id'> {
     default: [],
     schema: true,
     schemaName: 'Task',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'Task',
   })
   public tasks: (TTask | string)[];

@@ -1,7 +1,4 @@
 import { AsyncModelFactory } from '@nestjs/mongoose';
-import { ObjectId, Model } from 'mongoose';
-/* Types */
-import { TUser } from '../types/user.type';
 /* Schemas */
 import { UserDocument, userSchema } from './user.schema';
 export const userSchemaFactory: AsyncModelFactory = {

@@ -17,7 +17,7 @@ export class Project implements Omit<TProject, '_id'> {
     default: [],
     schema: true,
     schemaName: 'User',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'User',
   })
   public owners: (TUser | string)[];
@@ -49,7 +49,7 @@ export class Project implements Omit<TProject, '_id'> {
     default: [],
     schema: true,
     schemaName: 'Feature',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'Feature',
   })
   public features: (TFeature | string)[];
@@ -57,7 +57,7 @@ export class Project implements Omit<TProject, '_id'> {
     default: [],
     schema: true,
     schemaName: 'Requeriment',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'Requeriment',
   })
   public requeriments: (TRequeriment | string)[];
@@ -77,7 +77,7 @@ export class Project implements Omit<TProject, '_id'> {
     default: [],
     schema: true,
     schemaName: 'Task',
-    type: [mongoose.Schema.Types.ObjectId] || [String],
+    type: [mongoose.Schema.Types.ObjectId || String],
     ref: 'Task',
   })
   public tasks: (TTask | string)[];

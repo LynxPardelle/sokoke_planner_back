@@ -1,7 +1,7 @@
 import { IsDate, IsOptional, IsString } from '@nestjs/class-validator';
 import { isTStatus } from '../types/status.type';
 import { TRequerimentCreateDTO } from '../types/requeriment.type';
-export class CreateRequerimentsDTO {
+export class CreateRequerimentDTO {
   @IsOptional()
   @IsString()
   public name: string;
