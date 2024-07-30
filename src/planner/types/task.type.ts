@@ -47,3 +47,5 @@ export function isTTaskCreateDTO(arg: any): arg is TTaskCreateDTO {
 export function isTTaskUpdateDTO(arg: any): arg is TTaskUpdateDTO {
   return arg && arg._id;
 }
+
+export type TTaskParentType = 'project' | 'task';

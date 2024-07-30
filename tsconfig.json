@@ -6,7 +6,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "strict": true,
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -21,6 +23,8 @@
       "@src/*": ["src/*"],
       "@core/*": ["src/core/*"],
       "@shared/*": ["src/shared/*"]
-    }
-  }
+    },
+    "resolveJsonModule": true,
+  },
+  "exclude": ["node_modules", "dist"]
 }

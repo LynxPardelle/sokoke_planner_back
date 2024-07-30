@@ -1,11 +1,35 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './core/controllers/app.controller';
-import { AppService } from './core/services/app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+/* Config */
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { configLoader } from './config/config.loader';
+import { configSchema } from './config/config.schema';
+/* Modules */
 import { PlannerModule } from './planner/planner.module';
+import { SharedModule } from './shared/shared.module';
+/* Controllers */
+import { AppController } from './core/controllers/app.controller';
+/* Services */
+import { AppService } from './core/services/app.service';
 
 @Module({
-  imports: [PlannerModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      cache: true,
+      load: [configLoader],
+      validationSchema: configSchema,
+    }),
+    PlannerModule,
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('mongodbUri'),
+      }),
+      inject: [ConfigService],
+    }),
+    SharedModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ConfigService],
 })
 export class AppModule {}

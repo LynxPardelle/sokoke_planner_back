@@ -33,3 +33,5 @@ export function isTStatusCreateDTO(arg: any): arg is TStatusCreateDTO {
 export function isTStatusUpdateDTO(arg: any): arg is TStatusUpdateDTO {
   return arg && arg._id;
 }
+
+export type TStatusParentType = 'project' | 'requeriment' | 'task';

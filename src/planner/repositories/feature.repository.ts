@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 /* Types */
 import { TFeatureDAO } from '../types/daoPlanner.type';
-import { TFeatureRepository } from '../types/repositoryProject.type';
+import { TFeatureRepository } from '../types/repositoryPlanner.type';
 import { TRepositoryResponse } from '@src/shared/types/repositoryResponse.type';
 import { TFeature } from '../types/feature.type';
 /* DTOs */

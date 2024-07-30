@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  sokoke_planner_api-production:
+    container_name: sokoke_planner_api-production
+    build:
+      target: production
+      context: .
+      args:
+        - PORT=${PORT:-3001}
+    ports:
+      - '${PORT:-3001}:${PORT:-3001}'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '512m'
+        reservations:
+          cpus: '0.25'
+          memory: '256m'
+
+  sokoke_planner_api-dev:
+    container_name: sokoke_planner_api-dev
+    restart: unless-stopped
+    env_file: .env
+    build:
+      target: dev
+      context: .
+      args:
+        - PORT=${PORT:-3001}
+    ports:
+      - '${PORT:-3001}:${PORT:-3001}'
+      - '9228:9228'
+    volumes:
+      - .:/project
+      - node_modules:/project/node_modules/
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '512m'
+        reservations:
+          cpus: '0.25'
+          memory: '256m'
+
+volumes:
+  node_modules:

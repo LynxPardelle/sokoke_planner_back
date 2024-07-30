@@ -1,10 +1,23 @@
 {
   "name": "sokoke_planner_api",
   "version": "0.0.1",
-  "description": "",
-  "author": "LynxPardelle",
+  "description": "Sokoke Planner API",
+  "author": "Lynx Pardelle (https://lynxpardelle.com/)",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LynxPardelle/sokoke_planner_api/issues"
+  },
+  "keywords": [
+    "planner",
+    "api",
+    "todo",
+    "list"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LynxPardelle/sokoke_planner_api"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -42,7 +55,6 @@
     "@swc/cli": "^0.4.0",
     "@swc/core": "^1.7.0",
     "@swc/jest": "^0.2.36",
-    "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
     "@types/supertest": "^6.0.0",
