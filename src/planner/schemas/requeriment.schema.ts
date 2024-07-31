@@ -4,6 +4,7 @@ import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 /* Types */
 import { TStatus } from '../types/status.type';
 import { TRequeriment } from '../types/requeriment.type';
+import { TTask } from '../types/task.type';
 @Schema()
 export class Requeriment implements Omit<TRequeriment, '_id'> {
   @Prop({ required: true })
@@ -19,9 +20,21 @@ export class Requeriment implements Omit<TRequeriment, '_id'> {
   })
   public status: TStatus | string;
   @Prop({ required: true })
+  public lastCheckStatus: Date;
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'Task',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'Task',
+  })
+  public tasks: (TTask | string)[];
+  @Prop({ required: true })
   public startDate: Date;
   @Prop({ required: true })
   public endDate: Date;
+  @Prop({ default: false })
+  public completed: boolean;
   @Prop({ default: Date.now })
   public createdAt: Date;
   @Prop({ default: Date.now })

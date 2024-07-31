@@ -2,7 +2,10 @@ import { HydratedDocument, Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 /* Types */
+import { TProject } from '../types/project.type';
 import { TTask } from '../types/task.type';
+import { TRequeriment } from '../types/requeriment.type';
+import { TFeature } from '../types/feature.type';
 import { TStatus } from '../types/status.type';
 @Schema()
 export class Task implements Omit<TTask, '_id'> {
@@ -40,6 +43,40 @@ export class Task implements Omit<TTask, '_id'> {
   public impact: number;
   @Prop({ required: true })
   public impactDescription: string;
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'Project',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'Project',
+  })
+  public prevProjects: (TProject | string)[];
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'Task',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'Task',
+  })
+  public prevTasks: (TTask | string)[];
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'Requeriment',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'Requeriment',
+  })
+  public prevRequeriments: (TRequeriment | string)[];
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'Feature',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'Feature',
+  })
+  public prevFeatures: (TFeature | string)[];
+  @Prop({ default: false })
+  public completed: boolean;
   @Prop({ default: Date.now })
   public createdAt: Date;
   @Prop({ default: Date.now })

@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from '@nestjs/class-validator';
+import { IsBoolean, IsOptional, IsString } from '@nestjs/class-validator';
 import { TUserCreateDTO } from '../types/user.type';
 export class CreateUserDTO implements TUserCreateDTO {
   @IsOptional()
@@ -12,19 +12,23 @@ export class CreateUserDTO implements TUserCreateDTO {
   public email: string;
   @IsOptional()
   @IsString()
-  public phone: string;
-  @IsOptional()
-  @IsString()
   public username: string;
   @IsOptional()
   @IsString()
   public password: string;
+  @IsOptional()
+  @IsString()
+  public verifyToken: string;
+  @IsOptional()
+  @IsBoolean()
+  public verified: boolean;
   constructor(user: TUserCreateDTO | undefined) {
     this.name = user?.name;
     this.lastName = user?.lastName;
     this.email = user?.email;
-    this.phone = user?.phone;
     this.username = user?.username;
     this.password = user?.password;
+    this.verifyToken = user?.verifyToken;
+    this.verified = user?.verified;
   }
 }

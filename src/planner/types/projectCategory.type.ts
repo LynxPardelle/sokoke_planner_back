@@ -1,11 +1,12 @@
 import { TColor } from '@src/shared/types/color.type';
 import { TProjectSubCategory } from './projectSubCategory.type';
-
+import { TUser } from '@src/user/types/user.type';
 export type TProjectCategory = {
   _id: string;
   name: string;
   description: string;
   subCategories: (TProjectSubCategory | string)[];
+  owners: (TUser | string)[];
   createdAt: Date;
   updatedAt: Date;
 } & TColor;
@@ -20,6 +21,7 @@ export function isTProjectCategory(arg: any): arg is TProjectCategory {
     arg.name !== 'undefined' &&
     arg.description !== 'undefined' &&
     arg.subCategories !== 'undefined' &&
+    arg.owners !== 'undefined' &&
     arg.createdAt !== 'undefined' &&
     arg.updatedAt !== 'undefined'
   );

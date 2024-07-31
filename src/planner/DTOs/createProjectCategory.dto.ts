@@ -1,8 +1,8 @@
 import { IsArray, IsDate, IsOptional, IsString } from '@nestjs/class-validator';
 import { TProjectCategoryCreateDTO } from '../types/projectCategory.type';
 import { colorDTO } from '@src/shared/DTOs/color.dto';
-import { Schema } from 'mongoose';
 import { isTProjectSubCategory } from '../types/projectSubCategory.type';
+import { isTUser } from '@src/user/types/user.type';
 export class CreateProjectCategoryDTO
   extends colorDTO
   implements TProjectCategoryCreateDTO
@@ -16,6 +16,9 @@ export class CreateProjectCategoryDTO
   @IsOptional()
   @IsArray()
   public subCategories?: string[];
+  @IsOptional()
+  @IsArray()
+  public owners?: string[];
   @IsOptional()
   @IsDate()
   public createdAt: Date;
@@ -31,6 +34,11 @@ export class CreateProjectCategoryDTO
           typeof subCategory === 'object' && isTProjectSubCategory(subCategory)
             ? subCategory._id
             : subCategory,
+        )
+      : [];
+    this.owners = projectCategory?.owners
+      ? (projectCategory?.owners as any[]).map((owner) =>
+          typeof owner === 'object' && isTUser(owner) ? owner._id : owner,
         )
       : [];
     this.createdAt = projectCategory?.createdAt || new Date();

@@ -3,11 +3,12 @@ export type TUser = {
   name: string;
   lastName: string;
   email: string;
-  phone: string;
   username: string;
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  verifyToken: string;
+  verified: boolean;
 };
 
 export type TUserCreateDTO = Partial<Omit<TUser, '_id'>>;
@@ -19,11 +20,12 @@ export function isTUser(arg: any): arg is TUser {
     arg.name !== 'undefined' &&
     arg.lastName !== 'undefined' &&
     arg.email !== 'undefined' &&
-    arg.phone !== 'undefined' &&
     arg.username !== 'undefined' &&
     arg.password !== 'undefined' &&
     arg.createdAt !== 'undefined' &&
-    arg.updatedAt !== 'undefined'
+    arg.updatedAt !== 'undefined' &&
+    arg.verifyToken !== 'undefined' &&
+    arg.verified !== 'undefined'
   );
 }
 export function isTUserArray(arg: any): arg is TUser[] {

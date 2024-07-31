@@ -1,5 +1,8 @@
 import { TColor } from '@src/shared/types/color.type';
 import { TStatus } from './status.type';
+import { TProject } from './project.type';
+import { TRequeriment } from './requeriment.type';
+import { TFeature } from './feature.type';
 
 export type TTask = {
   _id: string;
@@ -14,6 +17,11 @@ export type TTask = {
   priority: number;
   impact: number;
   impactDescription: string;
+  prevProjects: (TProject | string)[];
+  prevTasks: (TTask | string)[];
+  prevRequeriments: (TRequeriment | string)[];
+  prevFeatures: (TFeature | string)[];
+  completed: boolean;
   createdAt: Date;
   updatedAt: Date;
 } & TColor;
@@ -28,6 +36,11 @@ export function isTTask(arg: any): arg is TTask {
     arg.description !== 'undefined' &&
     arg.status !== 'undefined' &&
     arg.dueDate !== 'undefined' &&
+    arg.prevProjects !== 'undefined' &&
+    arg.prevTasks !== 'undefined' &&
+    arg.prevRequeriments !== 'undefined' &&
+    arg.prevFeatures !== 'undefined' &&
+    arg.completed !== 'undefined' &&
     arg.createdAt !== 'undefined' &&
     arg.updatedAt !== 'undefined'
   );
@@ -48,4 +61,4 @@ export function isTTaskUpdateDTO(arg: any): arg is TTaskUpdateDTO {
   return arg && arg._id;
 }
 
-export type TTaskParentType = 'project' | 'task';
+export type TTaskParentType = 'project' | 'task' | 'requeriment' | 'feature';

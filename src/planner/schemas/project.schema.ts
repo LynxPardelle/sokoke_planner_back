@@ -87,6 +87,8 @@ export class Project implements Omit<TProject, '_id'> {
   public impact: number;
   @Prop({ required: true })
   public impactDescription: string;
+  @Prop({ default: false })
+  public completed: boolean;
   @Prop({ default: Date.now })
   public createdAt: Date;
   @Prop({ default: Date.now })

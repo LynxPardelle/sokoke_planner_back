@@ -1,13 +1,22 @@
-import { HydratedDocument, Model } from 'mongoose';
+import mongoose, { HydratedDocument, Model } from 'mongoose';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 /* Types */
 import { TStatus } from '../types/status.type';
+import { TUser } from '@src/user/types/user.type';
 @Schema()
 export class Status implements Omit<TStatus, '_id'> {
   @Prop({ required: true })
   public name: string;
   @Prop({ required: true })
   public description: string;
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'User',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'User',
+  })
+  public owners: (TUser | string)[];
   @Prop({ default: Date.now })
   public createdAt: Date;
   @Prop({ default: Date.now })

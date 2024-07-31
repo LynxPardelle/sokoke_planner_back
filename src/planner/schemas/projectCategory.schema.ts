@@ -4,6 +4,7 @@ import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 /* Types */
 import { TProjectCategory } from '../types/projectCategory.type';
 import { TProjectSubCategory } from '../types/projectSubCategory.type';
+import { TUser } from '@src/user/types/user.type';
 @Schema()
 export class ProjectCategory implements Omit<TProjectCategory, '_id'> {
   @Prop({ required: true })
@@ -18,6 +19,14 @@ export class ProjectCategory implements Omit<TProjectCategory, '_id'> {
     ref: 'ProjectSubCategory',
   })
   public subCategories: (TProjectSubCategory | string)[];
+  @Prop({
+    default: [],
+    schema: true,
+    schemaName: 'User',
+    type: [mongoose.Schema.Types.ObjectId || String],
+    ref: 'User',
+  })
+  public owners: (TUser | string)[];
   @Prop({
     default: Date.now,
   })

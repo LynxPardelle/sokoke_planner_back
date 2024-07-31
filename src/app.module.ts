@@ -5,13 +5,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configLoader } from './config/config.loader';
 import { configSchema } from './config/config.schema';
 /* Modules */
-import { PlannerModule } from './planner/planner.module';
 import { SharedModule } from './shared/shared.module';
+import { PlannerModule } from './planner/planner.module';
+import { AuthModule } from './auth/auth.module';
 /* Controllers */
 import { AppController } from './core/controllers/app.controller';
 /* Services */
 import { AppService } from './core/services/app.service';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,6 +21,7 @@ import { AppService } from './core/services/app.service';
       validationSchema: configSchema,
     }),
     PlannerModule,
+    AuthModule,
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('mongodbUri'),

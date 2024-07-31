@@ -14,12 +14,18 @@ import { UpdateProjectDTO } from '../DTOs/updateProject.dto';
 /* Services */
 import { LoggerService } from '@src/shared/services/logger.service';
 import { ProjectService } from './project.service';
+import { RequerimentService } from './requeriment.service';
+import { FeatureService } from './feature.service';
+import { TRequeriment } from '../types/requeriment.type';
+import { TFeature } from '../types/feature.type';
 @Injectable()
 export class TaskService implements TTaskRepository {
   constructor(
-    private _taskRepository: TaskRepository,
     private _loggerService: LoggerService,
+    private _taskRepository: TaskRepository,
     private _projectService: ProjectService,
+    private _requerimentService: RequerimentService,
+    private _featureService: FeatureService,
   ) {}
   author(): { [key: string]: string } {
     return {
@@ -41,7 +47,11 @@ export class TaskService implements TTaskRepository {
       'TaskService.create',
     );
     if (!args.parentType) throw new Error('Parent type is required');
-    let parentService: ProjectService | TaskService;
+    let parentService:
+      | ProjectService
+      | TaskService
+      | RequerimentService
+      | FeatureService;
     switch (args.parentType) {
       case 'project':
         parentService = await this._projectService;
@@ -49,11 +59,20 @@ export class TaskService implements TTaskRepository {
       case 'task':
         parentService = await this;
         break;
+      case 'requeriment':
+        parentService = await this._requerimentService;
+        break;
+      case 'feature':
+        parentService = await this._featureService;
+        break;
       default:
         throw new Error('Parent type not found');
     }
-    const parent: TRepositoryResponse<TProject> | TRepositoryResponse<TTask> =
-      await parentService.read(args.parentId);
+    const parent:
+      | TRepositoryResponse<TProject>
+      | TRepositoryResponse<TTask>
+      | TRepositoryResponse<TRequeriment>
+      | TRepositoryResponse<TFeature> = await parentService.read(args.parentId);
     if (parent.status !== 'success') throw new Error('Parent not found');
     this._loggerService.info(
       `Parent found: ${JSON.stringify(parent.data)}`,

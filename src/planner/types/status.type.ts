@@ -1,9 +1,11 @@
 import { TColor } from '@src/shared/types/color.type';
+import { TUser } from '@src/user/types/user.type';
 
 export type TStatus = {
   _id: string;
   name: string;
   description: string;
+  owners: (TUser | string)[];
   createdAt: Date;
   updatedAt: Date;
 } & TColor;
@@ -15,7 +17,10 @@ export function isTStatus(arg: any): arg is TStatus {
     arg !== 'undefined' &&
     arg._id !== 'undefined' &&
     arg.name !== 'undefined' &&
-    arg.description !== 'undefined'
+    arg.description !== 'undefined' &&
+    arg.owners !== 'undefined' &&
+    arg.createdAt !== 'undefined' &&
+    arg.updatedAt !== 'undefined'
   );
 }
 export function isTStatusArray(arg: any): arg is TStatus[] {
@@ -34,4 +39,4 @@ export function isTStatusUpdateDTO(arg: any): arg is TStatusUpdateDTO {
   return arg && arg._id;
 }
 
-export type TStatusParentType = 'project' | 'requeriment' | 'task';
+export type TStatusParentType = 'project' | 'requeriment' | 'task' | 'feature';

@@ -1,6 +1,7 @@
-import { IsDate, IsOptional, IsString } from '@nestjs/class-validator';
+import { IsArray, IsDate, IsOptional, IsString } from '@nestjs/class-validator';
 import { TStatusCreateDTO } from '../types/status.type';
 import { colorDTO } from '@src/shared/DTOs/color.dto';
+import { isTUser } from '@src/user/types/user.type';
 export class CreateStatusDTO extends colorDTO implements TStatusCreateDTO {
   @IsOptional()
   @IsString()
@@ -8,6 +9,9 @@ export class CreateStatusDTO extends colorDTO implements TStatusCreateDTO {
   @IsOptional()
   @IsString()
   public description: string;
+  @IsOptional()
+  @IsArray()
+  public owners?: string[];
   @IsOptional()
   @IsDate()
   public createdAt: Date;
@@ -18,6 +22,11 @@ export class CreateStatusDTO extends colorDTO implements TStatusCreateDTO {
     super(status);
     this.name = status?.name || '';
     this.description = status?.description || '';
+    this.owners = status?.owners
+      ? (status?.owners as any[]).map((owner) =>
+          typeof owner === 'object' && isTUser(owner) ? owner._id : owner,
+        )
+      : [];
     this.createdAt = status?.createdAt || new Date();
     this.updatedAt = new Date();
   }

@@ -25,6 +25,7 @@ export type TProject = {
   priority: number;
   impact: number;
   impactDescription: string;
+  completed: boolean;
   createdAt: Date;
   updatedAt: Date;
 } & TColor;
@@ -49,6 +50,7 @@ export function isTProject(arg: any): arg is TProject {
     arg.priority !== 'undefined' &&
     arg.impact !== 'undefined' &&
     arg.impactDescription !== 'undefined' &&
+    arg.completed !== 'undefined' &&
     arg.createdAt !== 'undefined' &&
     arg.updatedAt !== 'undefined'
   );

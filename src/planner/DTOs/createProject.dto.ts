@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsDate,
   IsNumber,
   IsOptional,
@@ -13,7 +14,11 @@ import { isTFeature } from '../types/feature.type';
 import { isTRequeriment } from '../types/requeriment.type';
 import { isTStatus } from '../types/status.type';
 import { isTTask } from '../types/task.type';
+import { isTUser } from '@src/user/types/user.type';
 export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
+  @IsOptional()
+  @IsArray()
+  public owners: string[];
   @IsOptional()
   @IsString()
   public name: string;
@@ -60,6 +65,9 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
   @IsString()
   public impactDescription: string;
   @IsOptional()
+  @IsBoolean()
+  public completed: boolean;
+  @IsOptional()
   @IsDate()
   public createdAt: Date;
   @IsOptional()
@@ -67,6 +75,11 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
   public updatedAt: Date;
   constructor(project: TProjectCreateDTO | undefined) {
     super(project);
+    this.owners = project?.owners
+      ? (project?.owners as any[]).map((owner) =>
+          typeof owner === 'object' && isTUser(owner) ? owner._id : owner,
+        )
+      : [];
     this.name = project?.name;
     this.description = project?.description;
     this.category = project?.category
@@ -112,6 +125,7 @@ export class CreateProjectDTO extends colorDTO implements TProjectCreateDTO {
     this.priority = project?.priority || 0;
     this.impact = project?.impact || 0;
     this.impactDescription = project?.impactDescription || '';
+    this.completed = project?.completed || false;
     this.createdAt = project?.createdAt || new Date();
     this.updatedAt = new Date();
   }

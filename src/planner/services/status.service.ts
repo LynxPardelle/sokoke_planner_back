@@ -20,14 +20,17 @@ import { LoggerService } from '@src/shared/services/logger.service';
 import { ProjectService } from './project.service';
 import { RequerimentService } from './requeriment.service';
 import { TaskService } from './task.service';
+import { FeatureService } from './feature.service';
+import { TFeature } from '../types/feature.type';
 @Injectable()
 export class StatusService implements TStatusRepository {
   constructor(
-    private _statusRepository: StatusRepository,
     private _loggerService: LoggerService,
+    private _statusRepository: StatusRepository,
     private _projectService: ProjectService,
     private _requerimentService: RequerimentService,
     private _taskService: TaskService,
+    private _featureService: FeatureService,
   ) {}
   author(): { [key: string]: string } {
     return {
@@ -49,7 +52,11 @@ export class StatusService implements TStatusRepository {
       'StatusService.create',
     );
     if (!args.parentType) throw new Error('Parent type is required');
-    let parentService: ProjectService | RequerimentService | TaskService;
+    let parentService:
+      | ProjectService
+      | RequerimentService
+      | TaskService
+      | FeatureService;
     switch (args.parentType) {
       case 'project':
         parentService = await this._projectService;
@@ -60,12 +67,18 @@ export class StatusService implements TStatusRepository {
       case 'task':
         parentService = await this._taskService;
         break;
+      case 'feature':
+        parentService = await this._featureService;
+        break;
       default:
         throw new Error('Parent type not found');
     }
     if (!args.parentId) throw new Error('Parent ID is required');
-    const parent: TRepositoryResponse<TProject | TRequeriment | TTask> =
-      await parentService.read(args.parentId);
+    const parent:
+      | TRepositoryResponse<TProject>
+      | TRepositoryResponse<TTask>
+      | TRepositoryResponse<TRequeriment>
+      | TRepositoryResponse<TFeature> = await parentService.read(args.parentId);
     if (parent.status !== 'success') throw new Error('Parent not found');
     this._loggerService.info(
       `Parent found: ${JSON.stringify(parent.data)}`,
