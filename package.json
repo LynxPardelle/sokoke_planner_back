@@ -42,7 +42,7 @@
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.4.15",
-    "@nestjs/platform-fastify": "^10.3.10",
+    "@nestjs/platform-fastify": "^10.4.15",
     "joi": "^17.13.3",
     "mongoose": "^8.7.3",
     "passport": "^0.7.0",
